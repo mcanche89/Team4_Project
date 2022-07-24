@@ -1,8 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8" />
-	<title></title>
+	<title>Git Agile</title>
 	<!--DO NOT FORGET THIS SCRIPT TAG SO YOU CAN USE JQUERY!!!!!-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -33,11 +34,77 @@
 
 	<!--AND YOUR OWN CSS CAN GO HERE AS WELL-->
 	<style>
+		* {
+			font-family: Arial, Helvetica, sans-serif;
+			background-color:azure;
+		}
 
+		header {
+
+			font-weight: bold;
+			font-size: 1.5em;
+			float: left;
+			margin-top: 15em;
+			margin-left: 90px;
+		}
+
+		#logOnForm th {
+			text-align: left;
+			font-size: 1.4em;
+		}
+
+		#logOnForm {
+			padding-left: 20em;
+			padding-top: 22.4em;
+		}
+
+		#wrapper {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 1000px;
+		}
+
+		#logOnButton {
+			font-size: 17px;	
+		}
 	</style>
 	<!--END OF YOUR OWN CSS-->
-</head >
+</head>
+
 <body>
-	<button onclick="javascript: TestButtonHandler();">Click here to test connection!</button>
+	<div id="wrapper">
+		<header>Welcome to the<br>Feedback Portal.<br> <br>At Git Agile<br>We appreciate<br>your feedback.</header>
+		<!-- <button onclick="javascript: TestButtonHandler();">Click here to test connection!</button> -->
+
+
+		<form>
+			<table id="logOnForm">
+				<tr>
+					<th>Sign In</th>
+				</tr>
+				<tr>
+					<td>Username</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" placeholder="Username" required>
+					</td>
+				</tr>
+				<tr>
+					<td><br>Password</td>
+				</tr>
+				<tr>
+					<td><input type="text" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+							required>
+					</td>
+				</tr>
+				<tr>
+					<td><br><center><button id="logOnButton" onclick="">log on</button></center></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
 </body>
-</html >
+
+</html>
