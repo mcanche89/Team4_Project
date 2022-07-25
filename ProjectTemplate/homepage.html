@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Welcome!</title>
+</head>
+<body>
+    <div>
+        <h1>Welcome</h1>
+        <h4>Log Out</h4>
+    </div>
+   
+    <div id="links-container">
+        <div class="links" align="center">
+            <div class="cont">
+                <img src="newSuggestion.png">
+                <p>Make a Suggestion</p>
+            </div>
+            <div class="cont">
+                <img src="mySuggestions.png">
+                <p>My Suggestions</p>
+            </div>
+            <div class="cont">
+                <img src="otherSuggestions.png">
+                <p>Community Suggestions</p>
+            </div>
+            <div class="cont">
+                <img src="myAccount.png">
+                <p>My Account</p>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: azure;
+        }
+
+        h1 {
+            float: left;
+            margin-left: 10%;
+            margin-top: 1%;
+        }
+
+        h4 {
+            text-align: right;
+            margin-top: 10%;
+            margin-right: 3%;
+            padding-top: 1em;
+            padding-right: 2em;
+        }
+
+        #logo {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 150px;
+        }
+
+        .logo-img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #links-container {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            margin: auto;
+        }
+
+        .links img {
+            transition: all .2s ease-in-out;
+            display: inline;
+            width: 100%;
+        }
+
+            .links img:hover {
+                transform: scale(1.1);
+            }
+
+        .links p {
+            font-family: "PT-Sans", sans-serif;
+            color: white;
+        }
+
+        .cont {
+            display: inline-block;
+            position: relative;
+            margin-right: 10px;
+            width: 20%;
+        }
+
+            .cont p {
+                position: absolute;
+                bottom: -30px;
+                left: 0;
+                margin: 0;
+                background-color: rgba(0,0,0,0.7);
+                width: 100%;
+            }
+
+        #links-container {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</body>
+</html>
