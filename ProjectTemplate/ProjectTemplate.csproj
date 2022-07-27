@@ -95,6 +95,7 @@
     <Content Include="homepage.html" />
     <Content Include="index.html" />
     <Content Include="ProjectServices.asmx" />
+    <Content Include="suggestionbox.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
