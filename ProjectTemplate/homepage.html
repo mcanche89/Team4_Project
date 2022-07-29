@@ -3,13 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <title>Welcome!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!--Added for logoff functionality still needs to be implimented using a button-->
+    <script type="text/javascript">
+        function LogOff() {
+            var webMethod = "ProjectServices.asmx/LogOff";
+            window.location.href = "index.html";
+        }
+    </script>
+
 </head>
 <body>
     <div>
         <h1>Welcome</h1>
         <h4>Log Out</h4>
     </div>
-   
+
     <div id="links-container">
         <div class="links" align="center">
             <div class="cont">

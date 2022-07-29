@@ -3,18 +3,65 @@
 <head>
     <meta charset="utf-8" />
     <title>The Suggestion Box</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        // Maximo added to alter for create suggestion operation, this works to create a suggestion entry in the database but I don't known how to use the checkbox correctly for the EmployeeID
+
+        //passes account info to the server, to create an account request
+        function CreateSuggestion(Title, SuggestionBody, Department) {
+            var webMethod = "ProjectServices.asmx/CreateSuggestion";
+            var parameters = "{\"Title\":\"" + encodeURI(Title) + "\",\"SuggestionBody\":\"" + encodeURI(SuggestionBody) + "\",\"Department\":\"" + encodeURI(Department) + "\"}";
+
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    window.location.href = "homepage.html";
+                    alert("Your Suggestion has been successfully logged!");
+                },
+                error: function (e) {
+                    alert("Something went wrong, please try again");
+                }
+            });
+        }
+
+
+        //this function clears data from all panels
+        function clearData() {
+            $("#titl").empty();
+            $("#body").empty();
+            $("#department").empty();
+            $("#emplID").empty();
+            window.location.href = "homepage.html";
+        }
+
+		// end what Maximo added
+
+
+        /*
+            removed from function and on submit check photo to find old locations please don't delete this
+            employeeId,    taken from function area above
+            \"EmployeeID\":\"" + encodeURI(employeeId) + "\",     taken from parameter area above
+            $('#empID').val(),          taken from on submit area below
+        */
+    </script>
+
 </head>
 <body>
     <h2>The Suggestion Box</h2>
-    <form>
+    <form onsubmit="CreateSuggestion($('#title').val(), $('#body').val(), $('#departmentSelect option:selected').val()); return false;">
         <div>
             <label>Title</label>
-            <input type="text" class="formInput"/>
+            <input type="text" id="title" />
         </div>
         <br />
         <div>
             <label>Department</label>
-            <select class="formInput">
+            <select id="departmentSelect">
                 <option>Design</option>
                 <option>Engineering</option>
                 <option>Product Management</option>
@@ -25,15 +72,15 @@
         <br />
         <div>
             <label>Suggestion</label>
-            <textarea></textarea>
+            <textarea id="body" maxlength="500"></textarea>
         </div>
         <br />
         <div>
-            <input id="anonCheck"type="checkbox"/>
+            <input id="anonCheck" type="checkbox" value="NULL"/> <!--get checkbox value and set checkbox value-->
             <label id="anonMode">Make Anonymous</label>
 
-            <button type="button" id="cancelButton">Cancel</button>
-            <button type="button" id="submitButton">Submit</button>
+            <button type="reset" id="cancelButton" onclick="clearData()">Cancel</button>
+            <button type="submit" id="submitButton">Submit</button>
         </div>
     </form>
 

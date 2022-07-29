@@ -68,10 +68,6 @@ namespace ProjectTemplate
 			MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
 			//here's the table we want to fill with the results from our query
 			
-
-			//Commented out by maximo for testing
-
-			
 			DataTable sqlDt = new DataTable();
 			//here we go filling it!
 			sqlDa.Fill(sqlDt);
@@ -96,7 +92,70 @@ namespace ProjectTemplate
 		// end what Maximo added
 
 
+		//Maximo added this to try to get a create suggestion code working, ok this works but we need to figure out how to add the EmployeeID via the checkbox on the suggestion submission form
 
+
+		//EXAMPLE OF AN INSERT QUERY WITH PARAMS PASSED IN.  BONUS GETTING THE INSERTED ID FROM THE DB!
+		[WebMethod(EnableSession = true)]
+		public void CreateSuggestion(string Title, string SuggestionBody, string Department)
+		{
+			string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["440sum20224"].ConnectionString;
+			//the only thing fancy about this query is SELECT LAST_INSERT_ID() at the end.  All that
+			//does is tell mySql server to return the primary key of the last inserted row.
+			string sqlSelect = "insert into Suggestions (Title, SuggestionBody, Department) " +
+				"values(@titleValue, @suggestionBodyValue, @departmentValue);";
+
+			MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+			MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+			//the below code contains vaLues removed from the body of this code so I could test without using the variable but I wouldnt loose the code please don't delete it.
+			//sqlCommand.Parameters.AddWithValue("@employeeIdValue", HttpUtility.UrlDecode(EmployeeID)); string EmployeeID,   EmployeeID,   @employeeIdValue,   ADD THESE BACK TO THE LIST ABOVE!
+			sqlCommand.Parameters.AddWithValue("@titleValue", HttpUtility.UrlDecode(Title));
+			sqlCommand.Parameters.AddWithValue("@suggestionBodyValue", HttpUtility.UrlDecode(SuggestionBody));
+			sqlCommand.Parameters.AddWithValue("@departmentValue", HttpUtility.UrlDecode(Department));
+			//sqlCommand.Parameters.AddWithValue("@emailValue", HttpUtility.UrlDecode(email)); may need another line so this is commented out for now
+
+			//this time, we're not using a data adapter to fill a data table.  We're just
+			//opening the connection, telling our command to "executescalar" which says basically
+			//execute the query and just hand me back the number the query returns (the ID, remember?).
+			//don't forget to close the connection!
+			
+			
+			
+			sqlConnection.Open();
+			//we're using a try/catch so that if the query errors out we can handle it gracefully
+			//by closing the connection and moving on
+			try
+			{
+				int SuggestionID = Convert.ToInt32(sqlCommand.ExecuteScalar());
+				//here, you could use this accountID for additional queries regarding
+				//the requested account.  Really this is just an example to show you
+				//a query where you get the primary key of the inserted row back from
+				//the database!
+			}
+			catch (Exception e)
+			{
+			}
+			sqlConnection.Close();
+		}
+
+		//end what Maximo added
+
+
+		//Maximo added log off function service, needs to be implimented on the homepage.html
+
+		[WebMethod(EnableSession = true)]
+		public bool LogOff()
+		{
+			//if they log off, then we remove the session.  That way, if they access
+			//again later they have to log back on in order for their ID to be back
+			//in the session!
+			Session.Abandon();
+			return true;
+		}
+
+
+		//end what Maximo added
 
 
 		/////////////////////////////////////////////////////////////////////////
