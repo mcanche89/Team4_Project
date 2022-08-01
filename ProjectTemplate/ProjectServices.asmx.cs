@@ -6,6 +6,7 @@ using System.Web.Services;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Web.Script.Serialization;
 
 namespace ProjectTemplate
 {
@@ -186,5 +187,77 @@ namespace ProjectTemplate
 				return "Something went wrong, please check your credentials and db name and try again.  Error: "+e.Message;
 			}
 		}
+
+		[WebMethod(EnableSession = true)]
+
+		public String MySuggestionQuery(string UserID)
+		{
+
+			string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["440sum20224"].ConnectionString;
+
+			string sqlSelect = "SELECT Title FROM Suggestions WHERE UserID=@idValue";
+
+			MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+			MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+			sqlCommand.Parameters.AddWithValue("@idValue", HttpUtility.UrlDecode(UserID));
+
+			MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+
+
+			DataTable sqlDt = new DataTable();
+			
+			sqlDa.Fill(sqlDt);
+
+			JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+			List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+			Dictionary<string, object> childRow;
+			foreach (DataRow row in sqlDt.Rows)
+			{
+				childRow = new Dictionary<string, object>();
+				foreach (DataColumn col in sqlDt.Columns)
+				{
+					childRow.Add(col.ColumnName, row[col]);
+				}
+				parentRow.Add(childRow);
+			}
+			return jsSerializer.Serialize(parentRow);
+		}
+
+		[WebMethod(EnableSession = true)]
+
+		public String AllSuggestionQuery()
+		{
+
+			string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["440sum20224"].ConnectionString;
+
+			string sqlSelect = "SELECT Title FROM Suggestions";
+
+			MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+			MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+
+			MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+
+
+			DataTable sqlDt = new DataTable();
+
+			sqlDa.Fill(sqlDt);
+
+			JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+			List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+			Dictionary<string, object> childRow;
+			foreach (DataRow row in sqlDt.Rows)
+			{
+				childRow = new Dictionary<string, object>();
+				foreach (DataColumn col in sqlDt.Columns)
+				{
+					childRow.Add(col.ColumnName, row[col]);
+				}
+				parentRow.Add(childRow);
+			}
+			return jsSerializer.Serialize(parentRow);
+		}
+
 	}
 }

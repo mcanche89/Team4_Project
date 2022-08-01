@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+</head>
+<body onload="getSuggestions()">
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var queryResults = "";
+        function getSuggestions() {
+
+
+                var webMethod = "ProjectServices.asmx/AllSuggestionQuery";
+
+
+                //jQuery ajax method
+                $.ajax({
+
+                    type: "POST",
+                    url: webMethod,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (data) {
+                        suggestionList = data;
+                        queryResults = JSON.parse(suggestionList.d);
+                    },
+                    error: function (e) {
+                        alert("An error occured");
+                    }
+                });
+
+        }
+    </script>
+
+</body>
+</html>

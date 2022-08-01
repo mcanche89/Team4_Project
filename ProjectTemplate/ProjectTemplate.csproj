@@ -93,6 +93,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="homepage.html" />
+    <Content Include="allsuggestions.html" />
+    <Content Include="mysuggestions.html" />
     <Content Include="index.html" />
     <Content Include="ProjectServices.asmx" />
     <Content Include="suggestionbox.html" />

@@ -9,6 +9,8 @@
 
 	<!--YOUR OWN JAVASCRIPT CAN GO RIGHT HERE-->
 	<script type="text/javascript">
+		
+
 		function TestButtonHandler() {
 			var webMethod = "ProjectServices.asmx/TestConnection";
 			var parameters = "{}";
@@ -32,7 +34,8 @@
 
 
         //HERE'S AN EXAMPLE OF AN AJAX CALL WITH JQUERY!
-        function LogOn(UserID, Password) {
+		function LogOn(UserID, Password) {
+			sessionStorage.setItem("user", UserID);
             //the url of the webservice we will be talking to
             var webMethod = "ProjectServices.asmx/LogOn";
             //the parameters we will pass the service (in json format because curly braces)
