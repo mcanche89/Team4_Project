@@ -97,23 +97,23 @@ namespace ProjectTemplate
 
 		//EXAMPLE OF AN INSERT QUERY WITH PARAMS PASSED IN.  BONUS GETTING THE INSERTED ID FROM THE DB!
 		[WebMethod(EnableSession = true)]
-		public void CreateSuggestion(string Title, string SuggestionBody, string Department)
+		public void CreateSuggestion(string UserID, string Title, string SuggestionBody, string Department, string Anonymous)
 		{
 			string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["440sum20224"].ConnectionString;
 			//the only thing fancy about this query is SELECT LAST_INSERT_ID() at the end.  All that
 			//does is tell mySql server to return the primary key of the last inserted row.
-			string sqlSelect = "insert into Suggestions (Title, SuggestionBody, Department) " +
-				"values(@titleValue, @suggestionBodyValue, @departmentValue);";
+			string sqlSelect = "insert into Suggestions (UserID, Title, SuggestionBody, Department, Anonymous) " +
+				"values(@userID, @titleValue, @suggestionBodyValue, @departmentValue, @anonymous);";
 
 			MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
 			MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
 			//the below code contains vaLues removed from the body of this code so I could test without using the variable but I wouldnt loose the code please don't delete it.
-			//sqlCommand.Parameters.AddWithValue("@employeeIdValue", HttpUtility.UrlDecode(EmployeeID)); string EmployeeID,   EmployeeID,   @employeeIdValue,   ADD THESE BACK TO THE LIST ABOVE!
+			sqlCommand.Parameters.AddWithValue("@userID", HttpUtility.UrlDecode(UserID));
 			sqlCommand.Parameters.AddWithValue("@titleValue", HttpUtility.UrlDecode(Title));
 			sqlCommand.Parameters.AddWithValue("@suggestionBodyValue", HttpUtility.UrlDecode(SuggestionBody));
 			sqlCommand.Parameters.AddWithValue("@departmentValue", HttpUtility.UrlDecode(Department));
-			//sqlCommand.Parameters.AddWithValue("@emailValue", HttpUtility.UrlDecode(email)); may need another line so this is commented out for now
+			sqlCommand.Parameters.AddWithValue("@anonymous", HttpUtility.UrlDecode(Anonymous));
 
 			//this time, we're not using a data adapter to fill a data table.  We're just
 			//opening the connection, telling our command to "executescalar" which says basically
