@@ -9,9 +9,24 @@
         // Maximo added to alter for create suggestion operation, this works to create a suggestion entry in the database but I don't known how to use the checkbox correctly for the EmployeeID
 
         //passes account info to the server, to create an account request
+        //function to set the value of the UserID based on the checkbox value
+
         function CreateSuggestion(Title, SuggestionBody, Department) {
+            var UserID;
+            var Anonymous;
+
+            if (document.getElementById("anonCheck").checked = true) {
+                Anonymous = 1;
+                UserID = "Default";
+            }
+            else {
+                Anonymous = 0;
+                UserID = sessionStorage.getItem("user");
+            }
+
+
             var webMethod = "ProjectServices.asmx/CreateSuggestion";
-            var parameters = "{\"Title\":\"" + encodeURI(Title) + "\",\"SuggestionBody\":\"" + encodeURI(SuggestionBody) + "\",\"Department\":\"" + encodeURI(Department) + "\"}";
+            var parameters = "{\"UserID\":\"" + encodeURI(UserID) + "\",\"Title\":\"" + encodeURI(Title) + "\",\"SuggestionBody\":\"" + encodeURI(SuggestionBody) + "\",\"Department\":\"" + encodeURI(Department) + "\",\"Anonymous\":\"" + encodeURI(Anonymous) + "\"}";
 
             $.ajax({
                 type: "POST",
@@ -76,7 +91,7 @@
         </div>
         <br />
         <div>
-            <input id="anonCheck" type="checkbox" value="NULL"/> <!--get checkbox value and set checkbox value-->
+            <input id="anonCheck" type="checkbox"/> <!--get checkbox value and set checkbox value removed the value="NULL"-->
             <label id="anonMode">Make Anonymous</label>
 
             <button type="reset" id="cancelButton" onclick="clearData()">Cancel</button>

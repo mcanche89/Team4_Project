@@ -35,7 +35,9 @@
 
         //HERE'S AN EXAMPLE OF AN AJAX CALL WITH JQUERY!
 		function LogOn(UserID, Password) {
+
 			sessionStorage.setItem("user", UserID);
+
             //the url of the webservice we will be talking to
             var webMethod = "ProjectServices.asmx/LogOn";
             //the parameters we will pass the service (in json format because curly braces)
@@ -64,7 +66,8 @@
                     //since our logon web method simply returns a true/false, that value is mapped
                     //to a generic property of the server response called d (I assume short for data
                     //but honestly I don't know...)
-                    if (msg.d) {
+					if (msg.d) {
+                        sessionStorage.setItem("user", UserID)
                         //server replied true, so show the accounts panel
                         //showPanel('Logon successful'); commented out by maximo
                         //LoadAccounts(); commented out by maximo
