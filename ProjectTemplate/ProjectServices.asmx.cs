@@ -188,6 +188,8 @@ namespace ProjectTemplate
 			}
 		}
 
+
+		//this function returns all suggestions for a specific userid in json
 		[WebMethod(EnableSession = true)]
 
 		public String MySuggestionQuery(string UserID)
@@ -224,6 +226,8 @@ namespace ProjectTemplate
 			return jsSerializer.Serialize(parentRow);
 		}
 
+
+		//this function returns all suggestions in json
 		[WebMethod(EnableSession = true)]
 
 		public String AllSuggestionQuery()
@@ -236,6 +240,44 @@ namespace ProjectTemplate
 			MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
 			MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
+
+			MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+
+
+			DataTable sqlDt = new DataTable();
+
+			sqlDa.Fill(sqlDt);
+
+			JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+			List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+			Dictionary<string, object> childRow;
+			foreach (DataRow row in sqlDt.Rows)
+			{
+				childRow = new Dictionary<string, object>();
+				foreach (DataColumn col in sqlDt.Columns)
+				{
+					childRow.Add(col.ColumnName, row[col]);
+				}
+				parentRow.Add(childRow);
+			}
+			return jsSerializer.Serialize(parentRow);
+		}
+
+
+		//this function returns the detail info for a specific suggestion in json, suggestion title is passed as parameter
+		[WebMethod(EnableSession = true)]
+
+		public String GetSuggestionInfo(string Title)
+		{
+			
+			string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["440sum20224"].ConnectionString;
+
+			string sqlSelect = "SELECT Title, Department, SuggestionBody, Status, UserID FROM Suggestions WHERE Title = @titleValue";
+
+			MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+			MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+			sqlCommand.Parameters.AddWithValue("@titleValue", HttpUtility.UrlDecode(Title));
 
 			MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
 

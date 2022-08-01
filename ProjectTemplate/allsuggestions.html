@@ -5,37 +5,74 @@
     <title></title>
 
 </head>
+<!--all suggestions are returned in queryResults on load to be iterated through for the left column-->
 <body onload="getSuggestions()">
 
+    <!--i added this button to show how the function works to get info for a suggestion so you can display it on the right column-->
+    <button onclick="getInfo(testTitle)">Click Here!</button>
 
 
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+        //i hardcoded this for the button to show how it works this var can be removed
+        var testTitle = "UserID Test";
+
         var queryResults = "";
+        var infoResults = "";
+
+        //function to return all suggestions, runs automatically on load
         function getSuggestions() {
 
 
-                var webMethod = "ProjectServices.asmx/AllSuggestionQuery";
+            var webMethod = "ProjectServices.asmx/AllSuggestionQuery";
 
 
-                //jQuery ajax method
-                $.ajax({
+            //jQuery ajax method
+            $.ajax({
 
-                    type: "POST",
-                    url: webMethod,
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
+                type: "POST",
+                url: webMethod,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
 
-                    success: function (data) {
-                        suggestionList = data;
-                        queryResults = JSON.parse(suggestionList.d);
-                    },
-                    error: function (e) {
-                        alert("An error occured");
-                    }
-                });
+                success: function (data) {
+                    suggestionList = data;
+                    queryResults = JSON.parse(suggestionList.d);
+                },
+                error: function (e) {
+                    alert("An error occured");
+                }
+            });
+
+        }
+
+
+        //this function returns the suggestion details in JSON, you need to pass the suggestion title in parameter
+        function getInfo(Title) {
+
+
+            var webMethod = "ProjectServices.asmx/GetSuggestionInfo";
+            var parameters = "{\"Title\":\"" + encodeURI(Title) + "\"}";
+
+            //jQuery ajax method
+            $.ajax({
+
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (data) {
+                    suggestionList = data;
+                    infoResults = JSON.parse(suggestionList.d);
+                },
+                error: function (e) {
+                    alert("An error occured");
+                }
+            });
 
         }
     </script>
