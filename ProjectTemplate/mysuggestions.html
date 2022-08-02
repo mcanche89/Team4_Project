@@ -50,6 +50,24 @@
                 success: function (data) {
                     suggestionList = data;
                     queryResults = JSON.parse(suggestionList.d);
+
+                    let text = "<div>"
+                    for (var x = 0; x < queryResults.length; x++) {
+                        text += "<button class=suggestionButton>" + queryResults[x].Title + "</button>" + "<br>" + "<br>";
+                    }
+                    text += "</div>";
+
+                    document.getElementById('suggestionList').innerHTML = text;
+
+                    var allElements = document.getElementsByClassName("suggestionButton");
+                    for (var x = 0; x < allElements.length; x++) {
+                        allElements[x].id = x;
+                    }
+
+                    for (var x = 0; x < allElements.length; x++) {
+                        document.getElementById(x).setAttribute("onclick", `getInfo("${queryResults[x].Title}")`)
+                    }
+
                 },
                 error: function (e) {
                     alert("An error occured");
@@ -77,6 +95,17 @@
                 success: function (data) {
                     suggestionList = data;
                     infoResults = JSON.parse(suggestionList.d);
+
+                    let p = "<div>";
+                    let x = 0;
+                    p += "<p>" + "Title: " + infoResults[x].Title + "</p>" + "<br>" + "<br>" +
+                        "<p>" + "Department: " + infoResults[x].Department + "</p>" + "<br>" + "<br>" +
+                        "<p>" + "Suggestion:" + "<br>" + infoResults[x].SuggestionBody + "</p>" + "<br>" + "<br>" +
+                        "<p id=status>" + "Status: " + infoResults[x].Status + "</p>" + "<br>" + "<br>" +
+                        "<p>" + "From: " + infoResults[x].UserID + "</p>" + "</div>"
+
+                    x += 1;
+                    document.getElementById('suggestionContent').innerHTML = p;   
                 },
                 error: function (e) {
                     alert("An error occured");
