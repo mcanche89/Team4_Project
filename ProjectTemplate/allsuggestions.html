@@ -87,13 +87,13 @@
                     suggestionList = data;
                     infoResults = JSON.parse(suggestionList.d);
 
-                    let p = "<div>";
+                    let p = "<p>";
                     let x = 0;
-                    p += "<p>" + "Title: " + infoResults[x].Title + "</p>" + "<br>" + "<br>" +
+                    p += "Title: " + infoResults[x].Title + "</p>" + "<br>" + "<br>" +
                         "<p>" + "Department: " + infoResults[x].Department + "</p>" + "<br>" + "<br>" +
                         "<p>" + "Suggestion:" + "<br>" + infoResults[x].SuggestionBody + "</p>" + "<br>" + "<br>" +
-                        "<p id=status>" + "Status: " + infoResults[x].Status + "</p>" + "<br>" + "<br>" +
-                        "<p>" + "From: " + infoResults[x].UserID + "</p>" + "</div>"
+                        "<p>" + "Status: " + "<span id=status>" + infoResults[x].Status + "</span>" + "</p>" + "<br>" + "<br>" +
+                        "<p>" + "From: " + infoResults[x].UserID + "</p>"
 
                     x += 1;
                     document.getElementById('suggestionContent').innerHTML = p;   
@@ -106,6 +106,12 @@
         }
     </script>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
         .col-01 { width:   8.33%; }
 		.col-02 { width:  16.66%; }
 		.col-03 { width:  25.00%; }
@@ -135,6 +141,49 @@
 		.purple { background-color: #e974bc; }
 		.tea { background-color: rgb(16, 74, 235); }
 
+        .headHeight {
+            height: 20vh;
+        }
+
+/*        .mainHeight {
+            height: 20vh;
+
+        }*/
+
+        .vl {
+            border-left: 2px solid black;
+            height: 70vh;
+            position: absolute;
+            left: 50%;
+            margin-left: -3px;
+            top: 2;
+        }
+
+        .suggestionButton {
+            width: 30vw;
+            font-size:1.5vw;
+            margin-left: 10vw;
+        }
+
+/*        .suggestionContent {
+            width: 100vw;
+        }*/
+
+        p {
+            font-size: 1vw;
+        }
+
+        #status {
+            color:cornflowerblue;
+        }
+
+        h1 {
+            font-size: 3vw;
+        }
+
+        a {
+            font-size: 2vw;
+        }
     </style>
 
     <div class="row">
@@ -147,10 +196,13 @@
     </div>
 
     <div class="row">
-        <div class="col-6 headHeight" id="suggestionList">
+        <div class="col-4 mainHeight" id="suggestionList">
 
         </div>
-        <div class="col-6 headHeight" id="suggestionContent">
+
+        <!--<div class="vl"></div>-->
+
+        <div class="col-8 mainHeight" id="suggestionContent">
 
         </div>
     </div>
