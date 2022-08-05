@@ -6,18 +6,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script type="text/javascript">
-        // Maximo added to alter for create suggestion operation, this works to create a suggestion entry in the database but I don't known how to use the checkbox correctly for the EmployeeID
 
-        //passes account info to the server, to create an account request
-        //function to set the value of the UserID based on the checkbox value
+        //passes account info to the server, to create an account request Maximo added
+        //function to get the information from the suggestion form and pass it to the webservice to save it in the database
 
         function CreateSuggestion(Title, SuggestionBody, Department) {
             var UserID;
             var Anonymous;
 
-            if (document.getElementById("anonCheck").checked = true) {
+            if (document.getElementById("anonCheck").checked == true) {
                 Anonymous = 1;
-                UserID = "Default";
+                UserID = sessionStorage.getItem("user");
             }
             else {
                 Anonymous = 0;
@@ -53,16 +52,8 @@
             $("#emplID").empty();
             window.location.href = "homepage.html";
         }
+        // end what Maximo added
 
-		// end what Maximo added
-
-
-        /*
-            removed from function and on submit check photo to find old locations please don't delete this
-            employeeId,    taken from function area above
-            \"EmployeeID\":\"" + encodeURI(employeeId) + "\",     taken from parameter area above
-            $('#empID').val(),          taken from on submit area below
-        */
     </script>
 
 </head>
@@ -91,7 +82,7 @@
         </div>
         <br />
         <div>
-            <input id="anonCheck" type="checkbox"/> <!--get checkbox value and set checkbox value removed the value="NULL"-->
+            <input id="anonCheck" type="checkbox" />
             <label id="anonMode">Make Anonymous</label>
 
             <button type="reset" id="cancelButton" onclick="clearData()">Cancel</button>
@@ -105,30 +96,30 @@
         }
 
         div {
-            float:left;
+            float: left;
         }
 
         br {
-            clear:both;
+            clear: both;
         }
 
         .formInput {
-            width:600px;
-            display:block;
-            background-color:lightgray;
+            width: 600px;
+            display: block;
+            background-color: lightgray;
         }
 
         textarea {
-            width:600px;
-            height:250px;
-            display:block;
-            background-color:lightgray;
+            width: 600px;
+            height: 250px;
+            display: block;
+            background-color: lightgray;
         }
 
         button {
-            float:right;
-            margin-left:25px;
-            width:75px;
+            float: right;
+            margin-left: 25px;
+            width: 75px;
         }
 
         #anonMode {
@@ -136,22 +127,20 @@
         }
 
         div {
-            margin-bottom:15px;
+            margin-bottom: 15px;
         }
 
         #submitButton {
-            background-color:lightskyblue;
+            background-color: lightskyblue;
         }
 
         #cancelButton {
-            background-color:lightgray;
+            background-color: lightgray;
         }
 
         #anonCheck {
-            background-color:deepskyblue;
+            background-color: deepskyblue;
         }
-
-
     </style>
 </body>
 </html>
