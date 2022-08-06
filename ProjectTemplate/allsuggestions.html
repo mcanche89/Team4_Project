@@ -8,26 +8,16 @@
 <!--all suggestions are returned in queryResults on load to be iterated through for the left column-->
 <body onload="getSuggestions()">
 
-    <!--i added this button to show how the function works to get info for a suggestion so you can display it on the right column-->
-    <button onclick="getInfo(testTitle)">Click Here!</button>
-
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        //i hardcoded this for the button to show how it works this var can be removed
-        var testTitle = "UserID Test";
+    
 
-        var queryResults = "";
-        var infoResults = "";
+    <script>
 
         //function to return all suggestions, runs automatically on load
         function getSuggestions() {
 
-
             var webMethod = "ProjectServices.asmx/AllSuggestionQuery";
-
 
             //jQuery ajax method
             $.ajax({
@@ -71,7 +61,7 @@
         function getInfo(Title) {
 
 
-            var webMethod = "ProjectServices.asmx/GetSuggestionInfo";
+            var webMethod = "ProjectServices.asmx/GetCommunitySuggestionInfo";
             var parameters = "{\"Title\":\"" + encodeURI(Title) + "\"}";
 
             //jQuery ajax method

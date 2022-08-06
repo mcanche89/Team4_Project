@@ -63,7 +63,7 @@
         function getInfo(Title) {
             var UserID = sessionStorage.getItem("user");
 
-            var webMethod = "ProjectServices.asmx/GetSuggestionInfo";
+            var webMethod = "ProjectServices.asmx/GetMySuggestionInfo";
             var parameters = "{\"UserID\":\"" + encodeURI(UserID) + "\",\"Title\":\"" + encodeURI(Title) + "\"}";
             //jQuery ajax method
             $.ajax({
