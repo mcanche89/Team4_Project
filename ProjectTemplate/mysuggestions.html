@@ -36,7 +36,7 @@
 
                     let text = "<div>"
                     for (var x = 0; x < queryResults.length; x++) {
-                        text += "<button class=suggestionButton>" + queryResults[x].Title + "</button>" + "<br>" + "<br>";
+                        text += "<button class=suggestionButton href=#suggestionContent>" + queryResults[x].Title + "</button>" + "<br>" + "<br>";
                     }
                     text += "</div>";
 
@@ -82,7 +82,7 @@
                     let x = 0;
                     p += "Title: " + infoResults[x].Title + "</p>" + "<br>" + "<br>" +
                         "<p>" + "Department: " + infoResults[x].Department + "</p>" + "<br>" + "<br>" +
-                        "<p>" + "Suggestion:" + "<br>" + infoResults[x].SuggestionBody + "</p>" + "<br>" + "<br>" +
+                        "<p>" + "Suggestion:" + "<br>" + "<span id=sug>" + infoResults[x].SuggestionBody + "</span>" + "</p>" + "<br>" + "<br>" +
                         "<p>" + "Status: " + "<span id=status>" + infoResults[x].Status + "</span>" + "</p>" + "<br>" + "<br>" +
                         "<p>" + "From: " + infoResults[x].UserID + "</p>"
 
@@ -100,89 +100,37 @@
         * {
             box-sizing: border-box;
             margin: 0;
-            font-family: sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: azure;
         }
-
-        .col-01 {
-            width: 8.33%;
-        }
-
-        .col-02 {
-            width: 16.66%;
-        }
-
-        .col-03 {
-            width: 25.00%;
-        }
-
-        .col-04 {
-            width: 33.33%;
-        }
-
-        .col-05 {
-            width: 41.66%;
-        }
-
-        .col-06 {
-            width: 50.00%;
-        }
-
-        .col-07 {
-            width: 58.33%;
-        }
-
-        .col-08 {
-            width: 66.66%;
-        }
-
-        .col-09 {
-            width: 75.00%;
-        }
-
-        .col-10 {
-            width: 83.33%;
-        }
-
-        .col-11 {
-            width: 91.66%;
-        }
-
-        .col-12 {
-            width: 100.00%;
-        }
-
-        [class*="col-"] {
+   
+        #title {
             float: left;
-            padding: 2vh;
-            border: 0.5vh solid white;
+            margin-left: 10%;
+            margin-top: 1%;
         }
 
-        .row::after {
-            content: "";
+        h1 {
+            font-size: 1.5vw;
+        }
+
+        #home {
+            text-align: right;
+            margin-right: 10%;
+            margin-top: 1%;
+        }
+
+        #suggestionList {
             clear: both;
-            display: block;
+            margin-top: 10%;
         }
 
-        .blue {
-            background-color: #77b8ec
+        #suggestionContent {
+            border: 1.5px black solid;
+            width: 50vw;
+            margin-left: auto;
+            margin-right: auto;
         }
-
-        .purple {
-            background-color: #e974bc;
-        }
-
-        .tea {
-            background-color: rgb(16, 74, 235);
-        }
-
-        .headHeight {
-            height: 20vh;
-        }
-
-        /*        .mainHeight {
-            height: 20vh;
-
-        }*/
 
         .vl {
             border-left: 2px solid black;
@@ -196,15 +144,16 @@
         .suggestionButton {
             width: 30vw;
             font-size: 1.5vw;
-            margin-left: 10vw;
+            margin-left: 35%;
+            height: 2em;
+            border-radius: 1vw;
+            background-color: #77b8ec;
+            font-weight:bold;
         }
-
-        /*        .suggestionContent {
-            width: 100vw;
-        }*/
 
         p {
             font-size: 1vw;
+            font-weight: bold;
         }
 
         #status {
@@ -218,28 +167,32 @@
         a {
             font-size: 2vw;
         }
+
+        #sug {
+            color: darkslategrey;
+        }
     </style>
 
-    <div class="row">
-        <div class="col-10 headHeight">
-            <h1>My Suggestions</h1>
-        </div>
-        <div class="col-2 headHeight">
-            <a href="./homepage.html">Home</a>
-        </div>
+    <div id="title">
+        <h1>My Suggestions</h1>
+    </div>
+    
+    <div id="home">
+        <a  href="./homepage.html">Home</a>
+    </div>
+    
+
+
+    <div id="suggestionList">
+
     </div>
 
-    <div class="row">
-        <div class="col-4 mainHeight" id="suggestionList">
+    <!--<div class="vl"></div>-->
 
-        </div>
+    <div id="suggestionContent">
 
-        <!--<div class="vl"></div>-->
-
-        <div class="col-8 mainHeight" id="suggestionContent">
-
-        </div>
     </div>
+
 
 
 
