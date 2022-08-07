@@ -12,18 +12,44 @@
             window.location.href = "index.html";
         }
 
+        function getName() {
+            var userID = sessionStorage.getItem("user");
 
-        function initialize() {
-            document.getElementById("welcome").innerHTML = "Welcome, " + sessionStorage.getItem("user");
+
+            var webMethod = "ProjectServices.asmx/UserNameQuery";
+            var parameters = "{\"UserID\":\"" + encodeURI(userID) + "\"}";
+
+            //jQuery ajax method
+            $.ajax({
+
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (data) {
+                    suggestionList = data;
+                    infoResults = JSON.parse(suggestionList.d);
+
+                    let h1 = "<h1>";
+                    h1 += "Welcome, " + infoResults[0].FirstName + "!</h1>"
+
+                    document.getElementById('welcome').innerHTML = h1;
+                },
+                error: function (e) {
+                    alert("An error occured");
+                }
+            });
         }
 
     </script>
 
 </head>
-<body onload="initialize()">
-    <div>
+<body onload="getName()">
+    <div id="header">
         <h1 id="welcome">Welcome </h1>
-        <h4>Log Out</h4>
+        <a href="javascript:LogOff()"><h4>Log Out</h4></a>
     </div>
 
     <div id="links-container">
@@ -46,10 +72,6 @@
                     <p>Community Suggestions</p>
                 </a>
             </div>
-            <div class="cont">
-                <img src="myAccount.png">
-                <p>My Account</p>
-            </div>
         </div>
     </div>
 
@@ -60,10 +82,11 @@
             background-color: azure;
         }
 
-        h1 {
+        #welcome {
             float: left;
             margin-left: 10%;
             margin-top: 1%;
+            font-size: x-small;
         }
 
         h4 {
