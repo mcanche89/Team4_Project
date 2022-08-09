@@ -8,6 +8,15 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Web.Script.Serialization;
 
+/*
+	Created by Team 4:
+		Shadi Ali
+		Maximo Canche
+		Enoc Cortes
+		Yuqing Dai
+		Richard Sterkenburg
+*/
+
 namespace ProjectTemplate
 {
 	[WebService(Namespace = "http://tempuri.org/")]
